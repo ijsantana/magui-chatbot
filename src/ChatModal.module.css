@@ -1,9 +1,16 @@
-.fab {
+.fabContainer {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  width: 56px;
-  height: 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 1000;
+}
+
+.fabWhatsapp {
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   border: none;
   background: #25d366;
@@ -13,13 +20,38 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+}
+
+.fabWhatsapp:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+}
+
+.fabWhatsapp .fabIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.fab {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .fab:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
 }
 
 .fabIcon {

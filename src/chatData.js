@@ -1,97 +1,131 @@
-// Árbol de conversación: cada nodo tiene mensaje y opciones 1-4 que llevan a otro nodo
+// Árbol de conversación: cada nodo tiene mensaje y opciones 1-5 que llevan a otro nodo
 export const CHAT_TREE = {
   root: {
-    message: '¡Hola! 👋 Bienvenido al chat. ¿En qué puedo ayudarte hoy?',
+    message: '¡Hola! Soy el asistente virtual de la Residencia Vivencias. Estoy aquí para ayudarlo. ¿En qué puedo asistirlo?\n\nEscribe:\n**1** Información sobre servicios\n**2** Actividades y eventos\n**3** Contacto con los responsables\n**4** Información sobre medicación o insumos\n**5** Otros',
     options: {
-      '1': 'ventas',
-      '2': 'soporte',
-      '3': 'informacion',
-      '4': 'contacto',
+      '1': 'servicios',
+      '2': 'actividades',
+      '3': 'contacto',
+      '4': 'medicacion',
+      '5': 'otros',
     },
   },
-  ventas: {
-    message: 'Has elegido **Ventas**. ¿Qué te interesa?',
+
+  // === OPCIÓN 1: INFORMACIÓN SOBRE SERVICIOS ===
+  servicios: {
+    message: 'Ofrecemos una variedad de servicios, incluyendo:\n\n• Atención médica\n• Terapia física y ocupacional\n• Actividades recreativas\n• Comidas balanceadas\n• Apoyo emocional y psicológico\n\n¿Te gustaría saber más sobre alguno de estos servicios?\n\nEscribe:\n**1** Atención médica\n**2** Terapia física y ocupacional\n**3** Actividades recreativas\n**4** Comidas balanceadas\n**5** Apoyo emocional y psicológico\n**0** Volver al menú principal',
     options: {
-      '1': 'ventas-productos',
-      '2': 'ventas-precios',
-      '3': 'ventas-ofertas',
-      '4': 'root',
+      '1': 'servicios-medica',
+      '2': 'servicios-terapia',
+      '3': 'servicios-recreativas',
+      '4': 'servicios-comidas',
+      '5': 'servicios-apoyo',
+      '0': 'root',
     },
   },
-  'ventas-productos': {
-    message: 'Nuestros productos principales: A, B y C. ¿Quieres más detalles de alguno?',
+  'servicios-medica': {
+    message: '**Atención médica**: Contamos con médicos y enfermeras disponibles las 24 horas para garantizar el cuidado de nuestros residentes.\n\nEscribe:\n**1** Volver a servicios\n**0** Volver al menú principal',
+    options: { '1': 'servicios', '0': 'root' },
+  },
+  'servicios-terapia': {
+    message: '**Terapia física y ocupacional**: Ofrecemos sesiones de kinesiología y terapia ocupacional para mantener la movilidad y autonomía de los residentes.\n\nEscribe:\n**1** Volver a servicios\n**0** Volver al menú principal',
+    options: { '1': 'servicios', '0': 'root' },
+  },
+  'servicios-recreativas': {
+    message: '**Actividades recreativas**: Organizamos talleres, juegos, música y otras actividades para el entretenimiento y bienestar de los residentes.\n\nEscribe:\n**1** Volver a servicios\n**0** Volver al menú principal',
+    options: { '1': 'servicios', '0': 'root' },
+  },
+  'servicios-comidas': {
+    message: '**Comidas balanceadas**: Ofrecemos desayuno, almuerzo, merienda y cena. Los menús están diseñados por nutricionistas y adaptados a necesidades dietéticas especiales.\n\nEscribe:\n**1** Volver a servicios\n**0** Volver al menú principal',
+    options: { '1': 'servicios', '0': 'root' },
+  },
+  'servicios-apoyo': {
+    message: '**Apoyo emocional y psicológico**: Brindamos acompañamiento emocional y contamos con profesionales de psicología para el bienestar mental de los residentes y sus familias.\n\nEscribe:\n**1** Volver a servicios\n**0** Volver al menú principal',
+    options: { '1': 'servicios', '0': 'root' },
+  },
+
+  // === OPCIÓN 2: ACTIVIDADES Y EVENTOS ===
+  actividades: {
+    message: 'Esta semana tenemos las siguientes actividades programadas:\n\n• **Lunes y miércoles**: Taller de manualidades\n• **Martes**: Yoga\n• **Lunes a jueves**: Kinesiología\n• **Lunes a sábado**: Gimnasia para la tercera edad\n\nTambién se realizan festejos de cumpleaños.\n\nEscribe:\n**1** Más información sobre talleres\n**2** Información sobre cumpleaños y eventos\n**0** Volver al menú principal',
     options: {
-      '1': 'ventas-producto-a',
-      '2': 'ventas-producto-b',
-      '3': 'ventas-producto-c',
-      '4': 'ventas',
+      '1': 'actividades-talleres',
+      '2': 'actividades-cumpleanos',
+      '0': 'root',
     },
   },
-  'ventas-producto-a': {
-    message: 'Producto A: calidad premium. ¿Algo más?',
-    options: { '1': 'ventas', '2': 'root', '3': 'root', '4': 'root' },
+  'actividades-talleres': {
+    message: 'Los talleres de manualidades se realizan los lunes y miércoles por la tarde. Yoga los martes a las 10:00. Kinesiología de lunes a jueves según turnos. Gimnasia de lunes a sábado por la mañana.\n\nEscribe:\n**1** Volver a actividades\n**0** Volver al menú principal',
+    options: { '1': 'actividades', '0': 'root' },
   },
-  'ventas-producto-b': {
-    message: 'Producto B: mejor relación calidad-precio.',
-    options: { '1': 'ventas', '2': 'root', '3': 'root', '4': 'root' },
+  'actividades-cumpleanos': {
+    message: 'Festejamos los cumpleaños de nuestros residentes con torta, música y la compañía de familiares. Las familias pueden coordinar con la administración para participar.\n\nEscribe:\n**1** Volver a actividades\n**0** Volver al menú principal',
+    options: { '1': 'actividades', '0': 'root' },
   },
-  'ventas-producto-c': {
-    message: 'Producto C: ideal para empezar.',
-    options: { '1': 'ventas', '2': 'root', '3': 'root', '4': 'root' },
-  },
-  'ventas-precios': {
-    message: 'Consulta nuestros precios en la web. ¿Necesitas ayuda con algo más?',
-    options: { '1': 'ventas', '2': 'root', '3': 'root', '4': 'root' },
-  },
-  'ventas-ofertas': {
-    message: '¡Tenemos ofertas especiales esta semana! Escribe 1 para verlas.',
-    options: { '1': 'ventas', '2': 'root', '3': 'root', '4': 'root' },
-  },
-  soporte: {
-    message: 'Has elegido **Soporte**. ¿Cuál es tu consulta?',
-    options: {
-      '1': 'soporte-tecnico',
-      '2': 'soporte-devoluciones',
-      '3': 'soporte-pedido',
-      '4': 'root',
-    },
-  },
-  'soporte-tecnico': {
-    message: 'Soporte técnico: nuestro equipo te contactará en menos de 24h.',
-    options: { '1': 'soporte', '2': 'root', '3': 'root', '4': 'root' },
-  },
-  'soporte-devoluciones': {
-    message: 'Para devoluciones, envía un email a devoluciones@ejemplo.com.',
-    options: { '1': 'soporte', '2': 'root', '3': 'root', '4': 'root' },
-  },
-  'soporte-pedido': {
-    message: 'Consulta el estado de tu pedido en "Mi cuenta" o escribe tu número de pedido.',
-    options: { '1': 'soporte', '2': 'root', '3': 'root', '4': 'root' },
-  },
-  informacion: {
-    message: '**Información**: horarios, ubicación, FAQs.',
-    options: {
-      '1': 'info-horarios',
-      '2': 'info-ubicacion',
-      '3': 'info-faq',
-      '4': 'root',
-    },
-  },
-  'info-horarios': {
-    message: 'Horario: L-V 9:00 a 18:00, Sábados 10:00 a 14:00.',
-    options: { '1': 'informacion', '2': 'root', '3': 'root', '4': 'root' },
-  },
-  'info-ubicacion': {
-    message: 'Estamos en Calle Principal 123. ¡Te esperamos!',
-    options: { '1': 'informacion', '2': 'root', '3': 'root', '4': 'root' },
-  },
-  'info-faq': {
-    message: 'Preguntas frecuentes en nuestra web, sección Ayuda.',
-    options: { '1': 'informacion', '2': 'root', '3': 'root', '4': 'root' },
-  },
+
+  // === OPCIÓN 3: CONTACTO CON LOS RESPONSABLES ===
   contacto: {
-    message: '**Contacto**: email hola@ejemplo.com, teléfono +34 600 000 000.',
-    options: { '1': 'root', '2': 'root', '3': 'root', '4': 'root' },
+    message: '¿Te gustaría contactar con la administradora o el médico?\n\nEscribe:\n**1** Ver información de contacto\n**2** Enviar un mensaje a la administradora\n**3** Enviar un mensaje al médico\n**0** Volver al menú principal',
+    options: {
+      '1': 'contacto-info',
+      '2': 'contacto-mensaje-admin',
+      '3': 'contacto-mensaje-medico',
+      '0': 'root',
+    },
+  },
+  'contacto-info': {
+    message: '**Información de contacto**:\n\n• Administración: +54 11 1234-5678\n• Email: info@residenciavivencias.com\n• Horario de atención: L-V 9:00 a 17:00\n\nEscribe:\n**1** Volver a contacto\n**0** Volver al menú principal',
+    options: { '1': 'contacto', '0': 'root' },
+  },
+  'contacto-mensaje-admin': {
+    message: 'Para enviar un mensaje a la administradora, por favor envía un email a admin@residenciavivencias.com o llama al +54 11 3773-5700.\n\nEscribe:\n**1** Volver a contacto\n**0** Volver al menú principal',
+    options: { '1': 'contacto', '0': 'root' },
+  },
+  'contacto-mensaje-medico': {
+    message: 'Para consultas médicas, por favor comunícate con la recepción al +54 11 1234-5678 y te derivarán con el médico de guardia.\n\nEscribe:\n**1** Volver a contacto\n**0** Volver al menú principal',
+    options: { '1': 'contacto', '0': 'root' },
+  },
+
+  // === OPCIÓN 4: MEDICACIÓN O INSUMOS ===
+  medicacion: {
+    message: '¿Necesitas saber si tu familiar necesita algún insumo o medicamento?\n\nPor favor, envíanos la información del paciente (nombre completo) y te responderemos a la brevedad.\n\nEscribe:\n**1** Consultar sobre medicación\n**2** Consultar sobre insumos\n**0** Volver al menú principal',
+    options: {
+      '1': 'medicacion-consulta',
+      '2': 'medicacion-insumos',
+      '0': 'root',
+    },
+  },
+  'medicacion-consulta': {
+    message: 'Para consultar sobre medicación de un residente, envía un email a enfermeria@residenciavivencias.com indicando el nombre del paciente, o comunícate al +54 11 1234-5678.\n\nEscribe:\n**1** Volver a medicación\n**0** Volver al menú principal',
+    options: { '1': 'medicacion', '0': 'root' },
+  },
+  'medicacion-insumos': {
+    message: 'Para consultar sobre insumos necesarios (pañales, cremas, artículos de higiene, etc.), comunícate con la administración al +54 11 1234-5678 o por email a admin@residenciavivencias.com.\n\nEscribe:\n**1** Volver a medicación\n**0** Volver al menú principal',
+    options: { '1': 'medicacion', '0': 'root' },
+  },
+
+  // === OPCIÓN 5: OTROS ===
+  otros: {
+    message: 'Claro, cuéntame, estoy aquí para ayudarte.\n\nEscribe:\n**1** Horarios de visita\n**2** Información general\n**3** Despedida\n**0** Volver al menú principal',
+    options: {
+      '1': 'otros-visitas',
+      '2': 'otros-info',
+      '3': 'despedida',
+      '0': 'root',
+    },
+  },
+  'otros-visitas': {
+    message: '**Horario de visitas**: Todos los días de 10:00 a 20:00. Se recomienda avisar con anticipación para coordinar.\n\nEscribe:\n**1** Volver a otros\n**0** Volver al menú principal',
+    options: { '1': 'otros', '0': 'root' },
+  },
+  'otros-info': {
+    message: 'La Residencia Vivencias ofrece atención integral para adultos mayores en un ambiente cálido y familiar. Para más información, visita nuestra página o comunícate con nosotros.\n\nEscribe:\n**1** Volver a otros\n**0** Volver al menú principal',
+    options: { '1': 'otros', '0': 'root' },
+  },
+
+  // === DESPEDIDA ===
+  despedida: {
+    message: 'Gracias por tu consulta. Si necesitas algo más, no dudes en escribirnos. ¡Que tengas un excelente día!\n\nEscribe:\n**0** Volver al menú principal',
+    options: { '0': 'root' },
   },
 }
 
