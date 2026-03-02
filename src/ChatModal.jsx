@@ -27,6 +27,7 @@ export default function ChatModal() {
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [currentNodeId, setCurrentNodeId] = useState('root')
+  const [isLoading, setIsLoading] = useState(false)
   const listRef = useRef(null)
 
   useEffect(() => {
@@ -44,27 +45,29 @@ export default function ChatModal() {
 
   const handleSend = () => {
     const text = input.trim()
-    if (!text) return
+    if (!text || isLoading) return
 
     setMessages((prev) => [...prev, { type: 'user', text }])
     setInput('')
+    setIsLoading(true)
 
     const response = getResponse(text, currentNodeId)
+    const botMessage = response
+      ? response.message
+      : 'No reconozco esa opción. Por favor escribe el número de la opción que deseas.'
+
     if (response) {
       setCurrentNodeId(response.nextNodeId)
-      setMessages((prev) => [
-        ...prev,
-        { type: 'bot', text: response.message },
-      ])
-    } else {
-      setMessages((prev) => [
-        ...prev,
-        {
-          type: 'bot',
-          text: 'No reconozco esa opción. Por favor escribe el número de la opción que deseas.',
-        },
-      ])
     }
+
+    setMessages((prev) => [...prev, { type: 'loading' }])
+
+    setTimeout(() => {
+      setMessages((prev) =>
+        prev.map((msg) => (msg.type === 'loading' ? { type: 'bot', text: botMessage } : msg))
+      )
+      setIsLoading(false)
+    }, 1000)
   }
 
   const handleKeyDown = (e) => {
@@ -140,7 +143,11 @@ export default function ChatModal() {
                   className={msg.type === 'user' ? styles.messageUser : styles.messageBot}
                 >
                   <span className={styles.bubble}>
-                    {msg.type === 'user' ? msg.text : formatMessage(msg.text)}
+                    {msg.type === 'user' && msg.text}
+                    {msg.type === 'bot' && formatMessage(msg.text)}
+                    {msg.type === 'loading' && (
+                      <span className={styles.spinner} aria-hidden="true" />
+                    )}
                   </span>
                 </li>
               ))}
@@ -154,12 +161,14 @@ export default function ChatModal() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
+                disabled={isLoading}
               />
               <button
                 type="button"
                 className={styles.sendBtn}
                 onClick={handleSend}
                 aria-label="Enviar"
+                disabled={isLoading}
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
                   <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
